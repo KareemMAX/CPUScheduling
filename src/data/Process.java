@@ -1,3 +1,5 @@
+package data;
+
 import java.awt.*;
 
 public class Process {
@@ -6,6 +8,7 @@ public class Process {
     private int arrivalTime;
     private int burstTime;
     private int priority;
+    private int quantum = -1;
 
     public Process(String name, Color color, int arrivalTime, int burstTime, int priority) {
         this.name = name;
@@ -53,5 +56,13 @@ public class Process {
 
     public void setPriority(int priority) {
         this.priority = priority;
+    }
+
+    public int getQuantum() {
+        return quantum;
+    }
+
+    public void setQuantum(int quantum) {
+        this.quantum = quantum;
     }
 }

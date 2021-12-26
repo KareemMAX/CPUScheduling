@@ -1,3 +1,7 @@
+package gui;
+
+import data.Process;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -12,6 +16,7 @@ public class NewProcessDialog extends JDialog {
     private JTextField burstTxt;
     private JTextField priorityTxt;
     private JPanel colorPanel;
+    private JTextField quantumTxt;
     private final NewProcessListener listener;
 
     public Color processColor = Color.RED;
@@ -59,16 +64,37 @@ public class NewProcessDialog extends JDialog {
     }
 
     private void onOK() {
-        listener.add(
-                new Process(
-                        nameTxt.getText(),
-                        processColor,
-                        Integer.parseInt(arrivalTxt.getText()),
-                        Integer.parseInt(burstTxt.getText()),
-                        Integer.parseInt(priorityTxt.getText())
-                )
-        );
+        // Check for errors
+        if (nameTxt.getText().isBlank()){
+            showErrorMessage();
+            return;
+        }
+
+        try {
+            Process p = new Process(
+                    nameTxt.getText(),
+                    processColor,
+                    Integer.parseInt(arrivalTxt.getText().trim()),
+                    Integer.parseInt(burstTxt.getText().trim()),
+                    Integer.parseInt(priorityTxt.getText().trim())
+            );
+
+            if (!quantumTxt.getText().isBlank()) {
+                p.setQuantum(Integer.parseInt(quantumTxt.getText().trim()));
+            }
+
+            listener.add(p);
+        }
+        catch (NumberFormatException e) {
+            showErrorMessage();
+            return;
+        }
+
         dispose();
+    }
+
+    private void showErrorMessage() {
+        JOptionPane.showMessageDialog(this, "Input error");
     }
 
     private void onCancel() {

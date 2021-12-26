@@ -1,3 +1,7 @@
+package gui;
+
+import data.Process;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -6,10 +10,9 @@ import java.util.List;
 
 public class GUIMain {
     private JList<String> processesList;
-    private JTextField textField1;
     private JComboBox<String> algorithmComboBox;
     private JButton simulateButton;
-    private JPanel panel;
+    private JPanel editPanel;
     private JButton addButton;
     private JButton removeButton;
 
@@ -38,6 +41,7 @@ public class GUIMain {
                 );
 
                 dialog.pack();
+                dialog.setLocationByPlatform(true);
                 dialog.setVisible(true);
             }
         });
@@ -55,9 +59,10 @@ public class GUIMain {
 
     public static void main(String[] args) {
         JFrame frame = new JFrame("CPU Scheduler");
-        frame.setContentPane(new GUIMain().panel);
+        frame.setContentPane(new GUIMain().editPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
+        frame.setLocationByPlatform(true);
         frame.setVisible(true);
     }
 
