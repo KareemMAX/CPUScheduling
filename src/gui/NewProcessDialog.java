@@ -24,6 +24,7 @@ public class NewProcessDialog extends JDialog {
     public NewProcessDialog(NewProcessListener listener) {
         this.listener = listener;
         setContentPane(contentPane);
+        setTitle("Add new process");
         setModal(true);
         getRootPane().setDefaultButton(buttonOK);
 
