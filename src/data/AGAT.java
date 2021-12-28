@@ -208,22 +208,5 @@ public class AGAT {
 
     }
 
-    public static void main(String[] args) {
-        Process p1 = new Process("p1", Color.blue,0,17,4);
-        p1.setQuantum(4);
-        Process p2 = new Process("p2", Color.red,3,6,9);
-        p2.setQuantum(3);
-        Process p3 = new Process("p3", Color.green,4,10,3);
-        p3.setQuantum(5);
-        Process p4 = new Process("p4", Color.yellow,29,4,8);
-        p4.setQuantum(2);
-        ArrayList<Process> processesArraylist = new ArrayList<>();
-        processesArraylist.add(p1);
-        processesArraylist.add(p2);
-        processesArraylist.add(p3);
-        processesArraylist.add(p4);
-        AGAT agat = new AGAT(processesArraylist);
-        agat.run();
-    }
 
 }
