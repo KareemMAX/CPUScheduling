@@ -50,7 +50,7 @@ public class SJF {
     }
 
     public void calculateShortJobFirstWithStarvation() {
-        algorithmAnswer.addProcess(processes.get(0), 0);
+        algorithmAnswer.addProcess(processes.get(0), processes.get(0).getBurstTime());
         int burstTime = processes.get(0).getBurstTime();
         processes.remove(0);
         while (processes.size() > 0) {
