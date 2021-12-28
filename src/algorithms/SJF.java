@@ -9,15 +9,18 @@ import java.util.List;
 public class SJF {
     private final AlgorithmAnswer algorithmAnswer;
     private final List<Process> processes;
+    List<Integer> waitingTimesList;
 
     SJF() {
         algorithmAnswer = new AlgorithmAnswer();
         processes = new ArrayList<>();
+        waitingTimesList = new ArrayList<>();
     }
 
     public SJF(List<Process> processes) {
         this.processes = processes;
         algorithmAnswer = new AlgorithmAnswer();
+        waitingTimesList = new ArrayList<>();
     }
 
     public void addProcess(Process process) {
@@ -53,20 +56,24 @@ public class SJF {
     }
 
     public void calculateShortJobFirstWithStarvation() {
+        waitingTimesList.add(0);
         algorithmAnswer.addProcess(processes.get(0), processes.get(0).getBurstTime());
+        waitingTimesList.add(0);
         int burstTime = processes.get(0).getBurstTime();
         processes.remove(0);
         while (processes.size() > 0) {
             int index = findShortJob(burstTime);
             algorithmAnswer.addProcess(processes.get(index), burstTime);
+            waitingTimesList.add(0);
             burstTime += processes.get(index).getBurstTime();
             processes.remove(index);
         }
-        System.out.println(algorithmAnswer.getProcessesOrder());
+        algorithmAnswer.setWaitingTimesList(waitingTimesList);
     }
 
     public void calculateShortJobFirstWithoutStarvation() {
         int count = 0;
+        waitingTimesList.add(0);
         int burstTime = processes.get(0).getBurstTime();
         algorithmAnswer.addProcess(processes.get(0), burstTime);
         count++;
@@ -80,10 +87,12 @@ public class SJF {
                 index = findShortJob(burstTime);
                 count++;
             }
+            waitingTimesList.add(burstTime);
             algorithmAnswer.addProcess(processes.get(index), burstTime);
             burstTime += processes.get(index).getBurstTime();
             processes.remove(index);
         }
+        algorithmAnswer.setWaitingTimesList(waitingTimesList);
     }
 
     public AlgorithmAnswer getAlgorithmAnswer() {
