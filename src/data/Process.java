@@ -9,6 +9,8 @@ public class Process {
     private int burstTime;
     private int priority;
     private int quantum = -1;
+    private int waitTime;
+    private int processTotalTime;
 
     public Process(String name, Color color, int arrivalTime, int burstTime, int priority) {
         this.name = name;
@@ -64,5 +66,25 @@ public class Process {
 
     public void setQuantum(int quantum) {
         this.quantum = quantum;
+    }
+
+    public static void main(String[] args) {
+
+    }
+
+    public int getWaitTime() {
+        return waitTime;
+    }
+
+    public void setWaitTime(int waitTime) {
+        this.waitTime = waitTime;
+    }
+
+    public int getProcessTotalTime() {
+        return processTotalTime;
+    }
+
+    public void setProcessTotalTime(int processTotalTime) {
+        this.processTotalTime = processTotalTime;
     }
 }
