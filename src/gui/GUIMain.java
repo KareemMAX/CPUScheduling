@@ -58,13 +58,13 @@ public class GUIMain {
 
                 switch (algorithmComboBox.getSelectedIndex()) {
                     case 0 -> { // Non-Preemptive Priority Scheduling
-                        Priority_Scheduling p = new Priority_Scheduling(processes);
+                        Priority_Scheduling p = new Priority_Scheduling(new ArrayList<>(processes));
                         p.calculatePrioritySchedulingWithoutStarvation();
 
                         answer = p.getAlgorithmAnswer();
                     }
                     case 1 -> { // SJF
-                        SJF p = new SJF(processes);
+                        SJF p = new SJF(new ArrayList<>(processes));
                         p.calculateShortJobFirstWithoutStarvation();
 
                         answer = p.getAlgorithmAnswer();
