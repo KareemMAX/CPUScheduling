@@ -1,7 +1,5 @@
 package data;
 
-import java.awt.*;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -18,7 +16,7 @@ public class AGAT {
     double v1;
     AlgorithmAnswer algorithmAnswer;
     boolean preemptiveOfActiveProcess;
-    ArrayList<ArrayList<Integer>> agatQuantam = new ArrayList<>();
+    ArrayList<ArrayList<Integer>> agatQuantum = new ArrayList<>();
     ArrayList<ArrayList<Integer>> agatFactor = new ArrayList<>();
     HashMap<String, Integer> hashMap;
     HashMap<Process,Integer> agat;
@@ -45,8 +43,8 @@ public class AGAT {
 
     private Double calculateV2() {
         int maxBrustTime = 0;
-        for (int i = 0; i < ProcessList.size(); ++i) {
-            maxBrustTime = max(maxBrustTime, ProcessList.get(i).getBurstTime());
+        for (Process process : ProcessList) {
+            maxBrustTime = max(maxBrustTime, process.getBurstTime());
         }
         double brustTime = maxBrustTime;
         if (brustTime > 10)
@@ -79,13 +77,13 @@ public class AGAT {
                     if (currentQuantumTime == 0) {
                         algorithmAnswer.addProcess(activeProcess, activeProcess.getQuantum());
                         activeProcess.setQuantum(activeProcess.getQuantum() + 2);
-                        agatQuantam.get(hashMap.get(activeProcess.getName())).add(activeProcess.getQuantum());
+                        agatQuantum.get(hashMap.get(activeProcess.getName())).add(activeProcess.getQuantum());
                         readyProcesses.add(activeProcess);
                         activeProcess = readyProcesses.get(0);
                     } else {
                         algorithmAnswer.addProcess(activeProcess, activeProcess.getQuantum() - currentQuantumTime);
                         activeProcess.setQuantum(activeProcess.getQuantum() + currentQuantumTime);
-                        agatQuantam.get(hashMap.get(activeProcess.getName())).add(activeProcess.getQuantum());
+                        agatQuantum.get(hashMap.get(activeProcess.getName())).add(activeProcess.getQuantum());
                         readyProcesses.add(activeProcess);
                         activeProcess = actPro;
                     }
@@ -98,19 +96,18 @@ public class AGAT {
     }
 
     private void calculateAgate() {
-        for (int i = 0; i < ProcessList.size(); ++i) {
-            agat.put(ProcessList.get(i), agatFactor(ProcessList.get(i)));
+        for (Process process : ProcessList) {
+            agat.put(process, agatFactor(process));
         }
     }
 
     private Integer agatFactor(Process process) {
-        Integer priority = process.getPriority();
-        Integer arrivalTime = process.getArrivalTime();
-        Integer brustTime = process.getBurstTime();
+        int priority = process.getPriority();
+        int arrivalTime = process.getArrivalTime();
+        int burstTime = process.getBurstTime();
         Double v2 = calculateV2();
-        Integer ret = (10 - priority) + (int)ceil(arrivalTime / v1) + (int)ceil(brustTime / v2);
 
-        return ret;
+        return (10 - priority) + (int)ceil(arrivalTime / v1) + (int)ceil(burstTime / v2);
     }
 
 
@@ -119,7 +116,7 @@ public class AGAT {
         for (int i = 0; i < ProcessList.size(); ++i) {
             if (ProcessList.get(i).getArrivalTime() == time) {
                 readyProcesses.add(ProcessList.get(i));
-                agatQuantam.get(i).add(ProcessList.get(i).getQuantum());
+                agatQuantum.get(i).add(ProcessList.get(i).getQuantum());
             }
         }
     }
@@ -127,20 +124,16 @@ public class AGAT {
     private void createLists() {
         for (int i = 0; i < ProcessList.size(); ++i) {
             hashMap.put(ProcessList.get(i).getName(), i);
-            agatQuantam.add(new ArrayList<Integer>());
-            agatFactor.add(new ArrayList<Integer>());
+            agatQuantum.add(new ArrayList<>());
+            agatFactor.add(new ArrayList<>());
             agat.put(ProcessList.get(i), agatFactor(ProcessList.get(i)));
         }
 
     }
 
-    private void removeFromReadyProcess(Process process) {
-        readyProcesses.remove(process);
-    }
 
-    private void addToDeadList(Process process) {
-        deadList.add(process);
-    }
+
+
 
     private void updateActiveProcess() {
         if (activeProcess == null)
@@ -162,14 +155,14 @@ public class AGAT {
     }
 
     private void setLastArrivalTime() {
-        for (int i = 0; i < ProcessList.size(); ++i) {
-            lastArrivalTime = max(lastArrivalTime, ProcessList.get(i).getArrivalTime());
+        for (Process process : ProcessList) {
+            lastArrivalTime = max(lastArrivalTime, process.getArrivalTime());
         }
     }
 
     private void updateWaitingTime() {
-        for (int i = 0; i < readyProcesses.size(); ++i) {
-            readyProcesses.get(i).setWaitTime(readyProcesses.get(i).getWaitTime() + 1);
+        for (Process readyProcess : readyProcesses) {
+            readyProcess.setWaitTime(readyProcess.getWaitTime() + 1);
         }
     }
 
@@ -197,13 +190,13 @@ public class AGAT {
         }
         ArrayList<Integer> waitingList = new ArrayList<>();
         ArrayList<Integer> turnAroundList = new ArrayList<>();
-        for (int i = 0; i < ProcessList.size(); ++i) {
-            waitingList.add(ProcessList.get(i).getWaitTime());
-            turnAroundList.add(ProcessList.get(i).getWaitTime() + ProcessList.get(i).getProcessTotalTime());
+        for (Process process : ProcessList) {
+            waitingList.add(process.getWaitTime());
+            turnAroundList.add(process.getWaitTime() + process.getProcessTotalTime());
         }
         algorithmAnswer.setWaitingTimesList(waitingList);
         algorithmAnswer.setTurnAroundTimesList(turnAroundList);
-        algorithmAnswer.setAgatQuantum(agatQuantam);
+        algorithmAnswer.setAgatQuantum(agatQuantum);
         algorithmAnswer.setAgatFactor(agatFactor);
 
     }
