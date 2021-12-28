@@ -71,5 +71,9 @@ public class Priority_Scheduling {
             processes.remove(index);
         }
     }
+
+    public AlgorithmAnswer getAlgorithmAnswer() {
+        return algorithmAnswer;
+    }
 }
 

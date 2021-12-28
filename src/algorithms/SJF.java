@@ -15,7 +15,7 @@ public class SJF {
         processes = new ArrayList<>();
     }
 
-    SJF(List<Process> processes) {
+    public SJF(List<Process> processes) {
         this.processes = processes;
         algorithmAnswer = new AlgorithmAnswer();
     }
@@ -86,5 +86,7 @@ public class SJF {
         }
     }
 
-
+    public AlgorithmAnswer getAlgorithmAnswer() {
+        return algorithmAnswer;
+    }
 }

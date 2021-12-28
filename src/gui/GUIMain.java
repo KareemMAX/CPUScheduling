@@ -1,5 +1,7 @@
 package gui;
 
+import algorithms.Priority_Scheduling;
+import algorithms.SJF;
 import data.AlgorithmAnswer;
 import data.Process;
 
@@ -40,19 +42,41 @@ public class GUIMain {
             public void actionPerformed(ActionEvent e) {
                 // TODO query the actual algorithms
 
-                answer = new AlgorithmAnswer();
-                for (Process p :
-                        processes) {
-                    answer.addProcess(p, p.getBurstTime());
+//                answer = new AlgorithmAnswer();
+//                for (Process p :
+//                        processes) {
+//                    answer.addProcess(p, p.getBurstTime());
+//                }
+//                List<Integer> waitingTimesList = new ArrayList<>();
+//                List<Integer> turnAroundTimesList = new ArrayList<>();
+//                for (int i = 0; i < processes.size(); i++) {
+//                    waitingTimesList.add(ThreadLocalRandom.current().nextInt(1,50));
+//                    turnAroundTimesList.add(ThreadLocalRandom.current().nextInt(1,50));
+//                }
+//                answer.setWaitingTimesList(waitingTimesList);
+//                answer.setTurnAroundTimesList(turnAroundTimesList);
+
+                switch (algorithmComboBox.getSelectedIndex()) {
+                    case 0 -> { // Non-Preemptive Priority Scheduling
+                        Priority_Scheduling p = new Priority_Scheduling(processes);
+                        p.calculatePrioritySchedulingWithoutStarvation();
+
+                        answer = p.getAlgorithmAnswer();
+                    }
+                    case 1 -> { // SJF
+                        SJF p = new SJF(processes);
+                        p.calculateShortJobFirstWithoutStarvation();
+
+                        answer = p.getAlgorithmAnswer();
+                    }
+                    case 2 -> { // SRTF
+
+                    }
+                    case 3 -> { // AGAT
+
+                    }
                 }
-                List<Integer> waitingTimesList = new ArrayList<>();
-                List<Integer> turnAroundTimesList = new ArrayList<>();
-                for (int i = 0; i < processes.size(); i++) {
-                    waitingTimesList.add(ThreadLocalRandom.current().nextInt(1,50));
-                    turnAroundTimesList.add(ThreadLocalRandom.current().nextInt(1,50));
-                }
-                answer.setWaitingTimesList(waitingTimesList);
-                answer.setTurnAroundTimesList(turnAroundTimesList);
+
                 updateGUI();
             }
         });
