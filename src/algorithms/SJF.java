@@ -14,13 +14,13 @@ public class SJF {
     SJF() {
         algorithmAnswer = new AlgorithmAnswer();
         processes = new ArrayList<>();
-        waitingTimesList=new ArrayList<>();
+        waitingTimesList = new ArrayList<>();
     }
 
     SJF(List<Process> processes) {
         this.processes = processes;
         algorithmAnswer = new AlgorithmAnswer();
-        waitingTimesList=new ArrayList<>();
+        waitingTimesList = new ArrayList<>();
     }
 
     public void addProcess(Process process) {
