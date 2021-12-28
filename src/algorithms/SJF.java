@@ -1,4 +1,7 @@
-package data;
+package algorithms;
+
+import data.AlgorithmAnswer;
+import data.Process;
 
 import java.util.ArrayList;
 import java.util.List;
