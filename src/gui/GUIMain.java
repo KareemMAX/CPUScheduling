@@ -7,6 +7,8 @@ import data.AlgorithmAnswer;
 import data.Process;
 
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import java.awt.*;
@@ -27,10 +29,10 @@ public class GUIMain {
     private JPanel panel;
     private JLabel avgWaitingTimeLabel;
     private JLabel avgTurnaroundTimeLabel;
-    private JList agatQuantumProcessList;
-    private JList agatQuantumList;
-    private JList agatFactorProcessList;
-    private JList agatFactorList;
+    private JList<String> agatQuantumProcessList;
+    private JList<String> agatQuantumList;
+    private JList<String> agatFactorProcessList;
+    private JList<String> agatFactorList;
     private JPanel ganttChart;
 
     private final List<Process> processes = new ArrayList<>();
@@ -86,6 +88,29 @@ public class GUIMain {
             }
         });
 
+        agatFactorProcessList.addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                DefaultListModel<String> factorListModel = new DefaultListModel<>();
+                factorListModel.addAll(
+                        answer.getAgatFactor().get(e.getFirstIndex())
+                                .stream().map(Object::toString).toList()
+                );
+                agatFactorList.setModel(factorListModel);
+            }
+        });
+        agatQuantumProcessList.addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                DefaultListModel<String> quantumListModel = new DefaultListModel<>();
+                quantumListModel.addAll(
+                        answer.getAgatQuantum().get(e.getFirstIndex())
+                                .stream().map(Object::toString).toList()
+                );
+                agatQuantumList.setModel(quantumListModel);
+            }
+        });
+
         addButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -133,6 +158,9 @@ public class GUIMain {
 
         ((GanttChart) this.ganttChart).answer = answer;
         ganttChart.repaint();
+
+        agatFactorProcessList.setModel(listModel);
+        agatQuantumProcessList.setModel(listModel);
     }
 
     public static void main(String[] args) throws Exception {
