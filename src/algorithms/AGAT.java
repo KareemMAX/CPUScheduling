@@ -1,4 +1,7 @@
-package data;
+package algorithms;
+
+import data.AlgorithmAnswer;
+import data.Process;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,7 +24,7 @@ public class AGAT {
     HashMap<String, Integer> hashMap;
     HashMap<Process,Integer> agat;
 
-    AGAT(ArrayList<Process> processes) {
+    public AGAT(ArrayList<Process> processes) {
         this.ProcessList = processes;
         time = 0;
         currentQuantumTime = 0;
@@ -201,5 +204,7 @@ public class AGAT {
 
     }
 
-
+    public AlgorithmAnswer getAlgorithmAnswer() {
+        return algorithmAnswer;
+    }
 }

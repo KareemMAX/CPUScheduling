@@ -1,5 +1,6 @@
 package gui;
 
+import algorithms.AGAT;
 import algorithms.Priority_Scheduling;
 import algorithms.SJF;
 import data.AlgorithmAnswer;
@@ -73,7 +74,10 @@ public class GUIMain {
 
                     }
                     case 3 -> { // AGAT
+                        AGAT agat = new AGAT(new ArrayList<>(processes));
+                        agat.run();
 
+                        answer = agat.getAlgorithmAnswer();
                     }
                 }
 
@@ -113,7 +117,7 @@ public class GUIMain {
         });
     }
     public void updateGUI(){
-        String[] columns = new String[] {"Process", "Arrival Time", "Turnaround Time"};
+        String[] columns = new String[] {"Process", "Waiting Time", "Turnaround Time"};
         String[][] data = new String[processes.size()][3];
         for (int i = 0; i < processes.size(); i++) {
             data[i][0] = processes.get(i).getName();
@@ -146,7 +150,7 @@ public class GUIMain {
 
         processesAnswerTable = new JTable(
                 new String[][] {},
-                new String[] {"Process", "Arrival Time", "Turnaround Time"}
+                new String[] {"Process", "Waiting Time", "Turnaround Time"}
         );
     }
 }
