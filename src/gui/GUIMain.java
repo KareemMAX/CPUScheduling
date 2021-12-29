@@ -3,10 +3,13 @@ package gui;
 import algorithms.AGAT;
 import algorithms.Priority_Scheduling;
 import algorithms.SJF;
+import algorithms.SRTF;
 import data.AlgorithmAnswer;
 import data.Process;
 
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import java.awt.*;
@@ -27,10 +30,10 @@ public class GUIMain {
     private JPanel panel;
     private JLabel avgWaitingTimeLabel;
     private JLabel avgTurnaroundTimeLabel;
-    private JList agatQuantumProcessList;
-    private JList agatQuantumList;
-    private JList agatFactorProcessList;
-    private JList agatFactorList;
+    private JList<String> agatQuantumProcessList;
+    private JList<String> agatQuantumList;
+    private JList<String> agatFactorProcessList;
+    private JList<String> agatFactorList;
     private JPanel ganttChart;
 
     private final List<Process> processes = new ArrayList<>();
@@ -72,7 +75,8 @@ public class GUIMain {
                         answer = p.getAlgorithmAnswer();
                     }
                     case 2 -> { // SRTF
-
+                        SRTF p = new SRTF(new ArrayList<>(processes));
+                        answer=p.SRTF();
                     }
                     case 3 -> { // AGAT
                         AGAT agat = new AGAT(new ArrayList<>(processes));
@@ -83,6 +87,29 @@ public class GUIMain {
                 }
 
                 updateGUI();
+            }
+        });
+
+        agatFactorProcessList.addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                DefaultListModel<String> factorListModel = new DefaultListModel<>();
+                factorListModel.addAll(
+                        answer.getAgatFactor().get(agatFactorProcessList.getSelectedIndex())
+                                .stream().map(Object::toString).toList()
+                );
+                agatFactorList.setModel(factorListModel);
+            }
+        });
+        agatQuantumProcessList.addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                DefaultListModel<String> quantumListModel = new DefaultListModel<>();
+                quantumListModel.addAll(
+                        answer.getAgatQuantum().get(agatQuantumProcessList.getSelectedIndex())
+                                .stream().map(Object::toString).toList()
+                );
+                agatQuantumList.setModel(quantumListModel);
             }
         });
 
@@ -125,13 +152,22 @@ public class GUIMain {
             data[i][1] = answer.getWaitingTimesList().get(i).toString();
             data[i][2] = answer.getTurnAroundTimesList().get(i).toString();
         }
-        DefaultTableModel tableModel = new DefaultTableModel();
+        DefaultTableModel tableModel = new DefaultTableModel() {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
         tableModel.setDataVector(data,columns);
         processesAnswerTable.setModel(tableModel);
         avgTurnaroundTimeLabel.setText(String.valueOf(answer.getAverageTurnAroundTime()));
         avgWaitingTimeLabel.setText(String.valueOf(answer.getAverageWaitingTime()));
 
         ((GanttChart) this.ganttChart).answer = answer;
+        ganttChart.repaint();
+
+        agatFactorProcessList.setModel(listModel);
+        agatQuantumProcessList.setModel(listModel);
     }
 
     public static void main(String[] args) throws Exception {
