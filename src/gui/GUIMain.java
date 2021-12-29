@@ -95,7 +95,7 @@ public class GUIMain {
             public void valueChanged(ListSelectionEvent e) {
                 DefaultListModel<String> factorListModel = new DefaultListModel<>();
                 factorListModel.addAll(
-                        answer.getAgatFactor().get(e.getFirstIndex())
+                        answer.getAgatFactor().get(agatFactorProcessList.getSelectedIndex())
                                 .stream().map(Object::toString).toList()
                 );
                 agatFactorList.setModel(factorListModel);
@@ -106,7 +106,7 @@ public class GUIMain {
             public void valueChanged(ListSelectionEvent e) {
                 DefaultListModel<String> quantumListModel = new DefaultListModel<>();
                 quantumListModel.addAll(
-                        answer.getAgatQuantum().get(e.getFirstIndex())
+                        answer.getAgatQuantum().get(agatQuantumProcessList.getSelectedIndex())
                                 .stream().map(Object::toString).toList()
                 );
                 agatQuantumList.setModel(quantumListModel);
