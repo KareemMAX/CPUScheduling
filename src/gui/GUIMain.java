@@ -3,6 +3,7 @@ package gui;
 import algorithms.AGAT;
 import algorithms.Priority_Scheduling;
 import algorithms.SJF;
+import algorithms.SRTF;
 import data.AlgorithmAnswer;
 import data.Process;
 
@@ -74,7 +75,8 @@ public class GUIMain {
                         answer = p.getAlgorithmAnswer();
                     }
                     case 2 -> { // SRTF
-
+                        SRTF p = new SRTF(new ArrayList<>(processes));
+                        answer=p.SRTF();
                     }
                     case 3 -> { // AGAT
                         AGAT agat = new AGAT(new ArrayList<>(processes));

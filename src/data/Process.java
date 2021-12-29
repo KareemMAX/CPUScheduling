@@ -68,10 +68,6 @@ public class Process {
         this.quantum = quantum;
     }
 
-    public static void main(String[] args) {
-
-    }
-
     public int getWaitTime() {
         return waitTime;
     }
