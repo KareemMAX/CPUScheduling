@@ -125,7 +125,9 @@ public class SJF {
             }
             burstTime = addAllTimes(index, burstTime);
         }
+        waitingTimesList.addAll(waits.values());
         algorithmAnswer.setWaitingTimesList(waitingTimesList);
+        algorithmAnswer.setTurnAroundTimesList(turnAroundTimesList);
     }
 
     public AlgorithmAnswer getAlgorithmAnswer() {
