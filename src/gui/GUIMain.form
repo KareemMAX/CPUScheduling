@@ -159,7 +159,9 @@
             <children>
               <component id="8f380" class="javax.swing.JList" binding="agatQuantumProcessList">
                 <constraints/>
-                <properties/>
+                <properties>
+                  <selectionMode value="0"/>
+                </properties>
               </component>
             </children>
           </scrollpane>
@@ -197,7 +199,9 @@
             <children>
               <component id="393b" class="javax.swing.JList" binding="agatFactorProcessList">
                 <constraints/>
-                <properties/>
+                <properties>
+                  <selectionMode value="0"/>
+                </properties>
               </component>
             </children>
           </scrollpane>
