@@ -132,6 +132,7 @@ public class GUIMain {
         avgWaitingTimeLabel.setText(String.valueOf(answer.getAverageWaitingTime()));
 
         ((GanttChart) this.ganttChart).answer = answer;
+        ganttChart.repaint();
     }
 
     public static void main(String[] args) throws Exception {
