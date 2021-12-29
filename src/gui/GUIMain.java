@@ -136,9 +136,10 @@ public class GUIMain {
         removeButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(processesList.getSelectedIndex() != -1) {
-                    processes.remove(processesList.getSelectedIndex());
-                    listModel.remove(processesList.getSelectedIndex());
+                int selectedIndex = processesList.getSelectedIndex();
+                if(selectedIndex != -1) {
+                    processes.remove(selectedIndex);
+                    listModel.remove(selectedIndex);
                     processesList.setModel(listModel);
                 }
             }
@@ -165,9 +166,10 @@ public class GUIMain {
 
         ((GanttChart) this.ganttChart).answer = answer;
         ganttChart.repaint();
-
-        agatFactorProcessList.setModel(listModel);
-        agatQuantumProcessList.setModel(listModel);
+        if(answer.getAgatFactor() != null) {
+            agatFactorProcessList.setModel(listModel);
+            agatQuantumProcessList.setModel(listModel);
+        }
     }
 
     public static void main(String[] args) throws Exception {
@@ -192,7 +194,7 @@ public class GUIMain {
                 new String[][] {},
                 new String[] {"Process", "Waiting Time", "Turnaround Time"}
         );
-
+        processesAnswerTable.getTableHeader().setReorderingAllowed(false);
         ganttChart = new GanttChart(answer);
     }
 }
