@@ -88,15 +88,13 @@
               </component>
             </children>
           </scrollpane>
-          <grid id="2249" binding="ganttChart" layout-manager="GridBagLayout">
+          <grid id="2249" binding="ganttChart" custom-create="true" layout-manager="GridBagLayout">
             <constraints>
               <grid row="0" column="0" row-span="1" col-span="4" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false">
                 <preferred-size width="-1" height="200"/>
               </grid>
             </constraints>
-            <properties>
-              <background color="-12517376"/>
-            </properties>
+            <properties/>
             <border type="none"/>
             <children/>
           </grid>

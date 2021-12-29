@@ -9,6 +9,7 @@ import data.Process;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -129,6 +130,8 @@ public class GUIMain {
         processesAnswerTable.setModel(tableModel);
         avgTurnaroundTimeLabel.setText(String.valueOf(answer.getAverageTurnAroundTime()));
         avgWaitingTimeLabel.setText(String.valueOf(answer.getAverageWaitingTime()));
+
+        ((GanttChart) this.ganttChart).answer = answer;
     }
 
     public static void main(String[] args) throws Exception {
@@ -137,6 +140,7 @@ public class GUIMain {
         JFrame frame = new JFrame("CPU Scheduler");
         frame.setContentPane(new GUIMain().panel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setMinimumSize(new Dimension(1018, 681));
         frame.pack();
         frame.setLocationByPlatform(true);
         frame.setVisible(true);
@@ -152,5 +156,7 @@ public class GUIMain {
                 new String[][] {},
                 new String[] {"Process", "Waiting Time", "Turnaround Time"}
         );
+
+        ganttChart = new GanttChart(answer);
     }
 }
