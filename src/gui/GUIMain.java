@@ -150,7 +150,12 @@ public class GUIMain {
             data[i][1] = answer.getWaitingTimesList().get(i).toString();
             data[i][2] = answer.getTurnAroundTimesList().get(i).toString();
         }
-        DefaultTableModel tableModel = new DefaultTableModel();
+        DefaultTableModel tableModel = new DefaultTableModel() {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
         tableModel.setDataVector(data,columns);
         processesAnswerTable.setModel(tableModel);
         avgTurnaroundTimeLabel.setText(String.valueOf(answer.getAverageTurnAroundTime()));
