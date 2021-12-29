@@ -28,13 +28,19 @@ public class GanttChart extends JPanel {
         int acc = 0;
         for (int i = 0; i < answer.getProcessesOrder().size(); i++) {
             g.setColor(answer.getProcessesOrder().get(i).getColor());
-            g.fillRect(20 + acc, 20, wPerTime * answer.getProcessesTime().get(i), h);
+            g.fillRect(20 + acc * wPerTime, 15, wPerTime * answer.getProcessesTime().get(i), h);
             g.setColor(defaultColor);
-            g.drawRect(20 + acc, 20, wPerTime * answer.getProcessesTime().get(i), h);
-            g.drawString(answer.getProcessesOrder().get(i).getName(), 30 + acc, getHeight()/2);
+            g.drawRect(20 + acc * wPerTime, 15, wPerTime * answer.getProcessesTime().get(i), h);
+            g.drawString(answer.getProcessesOrder().get(i).getName(), 30 + acc * wPerTime, getHeight()/2);
 
-            acc += answer.getProcessesTime().get(i) * wPerTime;
+            g.drawLine(20 + acc * wPerTime, 15, 20 + acc * wPerTime, h + 30);
+            g.drawString(String.valueOf(acc), 25 + acc * wPerTime, h + 30);
+
+            acc += answer.getProcessesTime().get(i);
         }
+
+        g.drawLine(20 + acc * wPerTime, 15, 20 + acc * wPerTime, h + 30);
+        g.drawString(String.valueOf(acc), 25 + acc * wPerTime, h + 30);
     }
 
     @Override
