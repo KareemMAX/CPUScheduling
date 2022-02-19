@@ -1,6 +1,6 @@
 # CPUScheduling
 CPU scheduling algorithms simulator and visualizer. 
-Was made as an assignment for the Operating Systems course taught in Cairo University Fauclty of Computers and Artificial Inteligence.
+Was made as an assignment for the Operating Systems course taught in Cairo University Faculty of Computers and Artificial Intelligence.
 
 ## Features
 - A graphical user intreface showing wait and turnover time of each process, 
